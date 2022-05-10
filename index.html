@@ -1,0 +1,121 @@
+<html>
+    <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    html {height: 100%}
+#encoded {
+    font-size: 20px;
+    font-weight: bold;
+    margin:0px;
+    margin-top: 20px;
+}
+#decoded {
+    font-size: 20px;
+    font-weight: bold;
+    margin:0px;
+    margin-top: 20px;
+}
+div.big {
+display: flex;
+width: 100%;
+justify-content: space-evenly;
+}
+.inp1, .inp2 { font-size: 18px; margin-top: 20px; padding: 7px 10px; resize: none;
+height: 200px; width: 350px; }
+button {margin-left: 10px; font-size: 17px; padding: 4px 14px; background-color: tomato; color: white; border: none; border-radius: 4px;}
+button:hover {background-color: rgb(219, 85, 61)}
+.dv1,.dv2 {word-wrap: break-word; width: 455px}
+.cpr {text-align: center; }
+.cprdiv {
+    margin-top: 540px;
+}
+
+/*------------MEDIA-------MEDIA-------MEDIA---*/
+@media screen and (max-width: 600px) {
+html {width: 100%}
+    div.big {
+    flex-direction: column;
+
+}
+.dv1,.dv2 { width:100%}
+.inp1, .inp2 {
+    width: 70%;
+}
+.cprdiv {margin-top: 200px}
+
+}
+
+
+</style>
+    </head>
+    <body>
+
+<div class="big">
+<div class="dv1">
+<textarea id="text1" class="inp1" placeholder="Enter text to encrypt"></textarea>
+<button onclick="encrypt(document.getElementById('text1').value)">
+Encrypt
+</button>
+<p id="encoded" onclick="copy(document.getElementById('encoded'))">
+Encoded text: 
+</p>
+</div>
+
+<div class="dv2">
+<textarea id="text2" class="inp2" placeholder="Enter text to decrypt"></textarea>
+<button onclick="decrypt(document.getElementById('text2').value)">
+  Decrypt
+</button>
+<p id="decoded" onclick="copy(document.getElementById('decoded'))">Decoded text: </p>
+</div>
+</div>
+<script>
+    function copy(elem) {
+navigator.clipboard.writeText(elem.innerText.substr(14));
+
+    }
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
+//let alph = ["A", "B", "C", "D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a", "b", "c", "d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z", "0", "1", "2", "3","4","5","6","7","8","9","`","~","!","@","#","$","%","^","&","*","(",")","-","+","_","=","[","]","{","}",",",".","<",">",":",";","'","\"","/","\\", " "];
+let alph = ['g', '6', 'c', '>', '}', 'p', 'e', '!', ';', 'z', 'X', 'o', 'x', ')', 'S', '=', 'm', 'r', 'D', 'O', '+', '`', 'k', 'q', 'y', '5', ' ', '|', ',', '{', '(', '~', 'Z', 'v', 'V', '%', 'J', 'H', '[', '7', 'G', '8', '$', '.', 'A', 'u', '2', 'M', 'j', '/', 'h', 'L', 't', 'I', '@', 'T', '4', '*', '-', 'R', 'C', '1', 'Q', ':', 'a', '"', 'N', 'Y', '\\', 'l', '<', 'F', 'i', '^', 's', '0', '&', 'U', 'n', 'E', "'", 'B', 'b', 'W', '#', 'w', 'K', '?', '3', 'd', 'f', '9', 'P', '_', ']']; 
+
+function encrypt(str) { 
+str = str.split("");
+for (i=0;i<str.length;i++) {
+let n = random(1, 9);
+str[i] = alph[(alph.indexOf(str[i]) + n) % 95] + n;
+//str[i] = ((alph.indexOf(str[i]) + n) % 93).toString() + n;
+}
+
+str = str.join("");
+document.getElementById("encoded").innerText = "Encoded text: " + str;
+
+}
+function decrypt(str) {
+str = str.split("");
+
+for (i=0;i<str.length;i+=2) {
+if (alph.indexOf(str[i]) - str[i+1] < 0) {
+str[i] = alph[95 + (alph.indexOf(str[i]) - str[i+1])];
+}
+else if (alph.indexOf(str[i]) - str[i+1] >= 0) {
+str[i] = alph[alph.indexOf(str[i]) - str[i+1]];
+//str[i] = alph[str[i] - str[i+1]];
+}
+str[i+1] = "";
+
+
+}
+str = str.join("");
+document.getElementById("decoded").innerText = "Decoded text: " + str;
+}
+</script>
+
+<div class="cprdiv">
+<h2 class="cpr">&copy; Made by Sevada</h2>
+</div>
+</body>
+</html>
