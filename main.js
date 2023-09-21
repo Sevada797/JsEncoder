@@ -1,4 +1,9 @@
- function copy(elem) {
+/*
+NOTE: this encoder works only for ASCII characters.
+Otherwise you won't get correct results.
+*/
+
+function copy(elem) {
 navigator.clipboard.writeText(elem.innerText.substr(14));
 
     }
@@ -39,3 +44,11 @@ str[i+1] = "";
 str = str.join("");
 document.getElementById("decoded").innerText = "Decoded text: " + str;
 }
+
+
+/*
+
+
+
+*/
+
